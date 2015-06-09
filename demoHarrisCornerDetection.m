@@ -10,11 +10,11 @@ if (ndims(image)==3)
     image=rgb2gray(image);
 end
 
-[r,c] = harrisCorners(image, k, sigma, theta);
+[X,Y] = harrisCorners(image, k, sigma, theta);
 
 figure; imshow(image)
 hold on;
-plot(c, r, 'ro','LineWidth',2)%plot detected features
+plot(X,Y, 'ro','LineWidth',2)%plot detected features
 
 
 

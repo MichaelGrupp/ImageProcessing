@@ -1,5 +1,6 @@
 %Harris & Stephens corner detector
-function [r, c] = harrisCorners(img, k, sigma, theta)
+%returns X and Y coordinates of detected feature points
+function [X, Y] = harrisCorners(img, k, sigma, theta)
 
 %components of structure tensor
 %for whole img (speed)
@@ -18,6 +19,6 @@ C = det + k*traces.^2;
 MAX = imregionalmax(C); %img > imdilate(img, [1 1 1; 1 0 1; 1 1 1]);
 C = MAX & (C>theta);
 
-[r,c] = find(C); % find row,col coords of (nonzero) features
+[Y,X] = find(C); % find row,col coords of (nonzero) features
 
 end
