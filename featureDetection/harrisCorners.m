@@ -5,7 +5,7 @@ function [X, Y] = harrisCorners(img, k, sigma, theta)
 %components of structure tensor
 %for whole img (speed)
 [Ix2, Iy2, Ixy] = structureTensor(img, sigma);
-M = [Ix2, Ixy; Ixy, Iy2];
+%M = [Ix2, Ixy; Ixy, Iy2];
 
 %compute scoring matrix C
 %using determinants of all pixels' structure tensors and their square traces
