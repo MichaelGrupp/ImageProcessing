@@ -5,7 +5,7 @@ k = 0.05;
 theta = 5e6;
 
 close all;
-image = imread('lenna.jpg');
+image = imread('testImages/lenna.jpg');
 if (ndims(image)==3)
     image=rgb2gray(image);
 end
