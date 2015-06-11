@@ -2,7 +2,7 @@ addpath('featureDetection');
 
 sigma = 3;
 k = 0.05;
-theta = 5e6;
+theta = 3e7;
 
 close all;
 image = imread('testImages/lenna.jpg');
@@ -14,4 +14,4 @@ end
 
 figure; imshow(image)
 hold on;
-plot(X,Y, 'ro','LineWidth',2)%plot detected features
+plot(X,Y, 'r sq','LineWidth',2)%plot detected features

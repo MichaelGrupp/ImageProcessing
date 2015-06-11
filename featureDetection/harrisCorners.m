@@ -1,11 +1,19 @@
 %Harris & Stephens corner detector
 %returns X and Y coordinates of detected feature points
 function [X, Y] = harrisCorners(img, k, sigma, theta)
+addpath('core');
 
-%components of structure tensor
+%image gradients for structure tensor
 %for whole img (speed)
-[Ix2, Iy2, Ixy] = structureTensor(img, sigma);
-%M = [Ix2, Ixy; Ixy, Iy2];
+[Ix, Iy] = imgGradients(img);
+
+%gaussian filter/kernel of size (2*sigma+1)*(2*sigma+1) and standard deviation sigma
+g = fspecial('gaussian', (2*sigma+1), sigma);
+
+%apply gaussian to components of structure tensor via 2d convolution
+Ix2 = conv2(Ix.^2, g, 'same');
+Iy2 = conv2(Iy.^2, g, 'same');
+Ixy = conv2(Ix.*Iy, g, 'same');
 
 %compute scoring matrix C
 %using determinants of all pixels' structure tensors and their square traces
