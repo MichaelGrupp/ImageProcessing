@@ -1,5 +1,5 @@
 %compute components of structure tensors for all pixels of an image
-function [Ix2, Iy2, Ixy] = structureTensor(img, sigma)
+function [Ix2, Iy2, Ixy] = structureTensors(img, sigma)
     %gradient kernels
     %source: http://matlabtricks.com/post-5/3x3-convolution-kernels-with-online-demo#demo
     dx = [-1 0 1; -1 0 1; -1 0 1];
