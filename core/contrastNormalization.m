@@ -1,6 +1,6 @@
 function [imgOut] = contrastNormalization(img, aRate, bRate)
 gMax = double(max(max(img)));
-gMin = double(max(min(img)));
+gMin = double(min(min(img)));
 
 a = aRate*(255/(gMax-gMin));
 
