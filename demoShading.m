@@ -1,8 +1,8 @@
 addpath('core')
 
 close all;
-img = imread('testImages/inpImg.png');
-imgRef = imread('testImages/refImg.png');
+img = im2double(imread('testImages/inpImg.png'));
+imgRef = im2double(imread('testImages/refImg.png'));
 if (ndims(img)==3)
     img=rgb2gray(img);
 end
