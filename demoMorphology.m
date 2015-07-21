@@ -31,10 +31,10 @@ Region2.extractBows(imgOut2);
 
 %the morphological step
 Merged = Region.merge(Region1,Region2);
+Merged.pack();
 
 imgMerged = Merged.draw();
 
-subplot(4,1,1), subimage(img1), title('original')
-subplot(4,1,2), subimage(imgOut1), title('segmentated')
-subplot(4,1,3), subimage(imgOut2), title('segmentated rotated')
-subplot(4,1,4), subimage(imgMerged), title('morphological step')
+subplot(3,1,1), subimage(imgOut1), title('region 1')
+subplot(3,1,2), subimage(imgOut2), title('region 2')
+subplot(3,1,3), subimage(imgMerged), title('morphological step')

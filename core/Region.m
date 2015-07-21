@@ -44,6 +44,30 @@ classdef Region <handle
            end
        end
        
+       function pack(obj)
+           old = 1; new = 1;
+           if (obj.numBows ~= 1)
+              newBows = zeros(1,3);
+              while (old<obj.numBows)
+                  %copy a bow
+                  newBows(new,:) = obj.bows(old,:);
+                  old=old+1;
+                  %summarize bows which overlap
+                  while ((old < obj.numBows) && ...
+                          newBows(new,3)+1 >= obj.bows(old,2) && ...
+                          newBows(new,1) == obj.bows(old,1))
+                      if (newBows(new,3) < obj.bows(old,3))
+                          newBows(new,3) = obj.bows(old,3);
+                      end
+                      old=old+1;
+                  end
+                  new=new+1;
+              end
+              obj.numBows=new-1;
+              obj.bows=newBows;
+           end
+       end
+       
    end
    
    %morphological methods
