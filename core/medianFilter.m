@@ -2,7 +2,6 @@ function [imgOut] = medianFilter(img, fSize)
 
 [m,n] = size(img);
 imgOut = zeros(m,n);
-kernel = ones(fSize)/fSize^2;
 w = round(fSize/2);
 
 for i=1:m
