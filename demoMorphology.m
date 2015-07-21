@@ -2,8 +2,8 @@ addpath('core')
 
 close all; clear all;
 %works only with double!!
-img1 = im2double(imread('testImages/coins.jpg'));
-img2 = im2double(imread('testImages/coinsRotated.jpg'));
+img1 = im2double(imread('testImages/morph1.png'));
+img2 = im2double(imread('testImages/morph2.png'));
 if (ndims(img1)==3)
     img1=rgb2gray(img1);
 end

@@ -51,22 +51,22 @@ classdef Region <handle
        function [Merged] = merge(Region1, Region2)
            Merged = Region;
            Merged.numBows = Region1.numBows + Region2.numBows;
-           i = 1; j = 1;
+           i = 1; j = 1; k = 1; % loop indices for Region1, Region2, Merged
            while(true)
-               if(Region1.bows(i,1) < Region2.bows(i,1) || (Region1.bows(i,1) == Region2.bows(i,1) && Region1.bows(i,2) < Region2.bows(i,2)) )
-                   Merged.bows(i,:) = Region1.bows(i,:);
-                   i=i+1;
+               if(Region1.bows(i,1) < Region2.bows(j,1) || (Region1.bows(i,1) == Region2.bows(j,1) && Region1.bows(i,2) < Region2.bows(j,2)) )
+                   Merged.bows(k,:) = Region1.bows(i,:);
+                   i=i+1; k=k+1;
                    if (i > Region1.numBows)
-                       while (j ~= Region2.numBows) Merged.bows(i,:) = Region2.bows(j,:); i=i+1; j=j+1; end
-                       Merged.numBows=Merged.numBows-1;
+                       while (j ~= Region2.numBows) Merged.bows(k,:) = Region2.bows(j,:); j=j+1; k=k+1; end
+                       Merged.numBows=Merged.numBows-1; %TODO
                        break 
                    end
                else
-                   Merged.bows(i,:) = Region2.bows(i,:);
-                   i=i+1;
-                   if (i > Region2.numBows)
-                       while (j ~= Region1.numBows) Merged.bows(i,:) = Region1.bows(j,:); i=i+1; j=j+1; end
-                       Merged.numBows=Merged.numBows-1;
+                   Merged.bows(k,:) = Region2.bows(j,:);
+                   j=j+1; k=k+1;
+                   if (j > Region2.numBows)
+                       while (i ~= Region1.numBows) Merged.bows(k,:) = Region1.bows(i,:); i=i+1; k=k+1; end
+                       Merged.numBows=Merged.numBows-1; %TODO
                        break 
                    end
                end
