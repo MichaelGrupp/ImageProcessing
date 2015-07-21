@@ -45,5 +45,33 @@ classdef Region <handle
        end
        
    end
+   
+   %morphological methods
+   methods(Static)
+       function [Merged] = merge(Region1, Region2)
+           Merged = Region;
+           Merged.numBows = Region1.numBows + Region2.numBows;
+           i = 1; j = 1;
+           while(true)
+               if(Region1.bows(i,1) < Region2.bows(i,1) || (Region1.bows(i,1) == Region2.bows(i,1) && Region1.bows(i,2) < Region2.bows(i,2)) )
+                   Merged.bows(i,:) = Region1.bows(i,:);
+                   i=i+1;
+                   if (i > Region1.numBows)
+                       while (j ~= Region2.numBows) Merged.bows(i,:) = Region2.bows(j,:); i=i+1; j=j+1; end
+                       Merged.numBows=Merged.numBows-1;
+                       break 
+                   end
+               else
+                   Merged.bows(i,:) = Region2.bows(i,:);
+                   i=i+1;
+                   if (i > Region2.numBows)
+                       while (j ~= Region1.numBows) Merged.bows(i,:) = Region1.bows(j,:); i=i+1; j=j+1; end
+                       Merged.numBows=Merged.numBows-1;
+                       break 
+                   end
+               end
+           end
+       end
+   end
     
 end
