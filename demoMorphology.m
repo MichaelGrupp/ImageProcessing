@@ -33,7 +33,7 @@ Region2.extractBows(imgOut2);
 Region3 = Region.merge(Region1,Region2);
 %pack overlapping bows to save memory
 Region3.pack();
-Region3 = Region.translate(Region3, [-1,20]);
+Region3 = Region.translate(Region3, [-50,20]);
 
 imgMerged = Region3.draw();
 

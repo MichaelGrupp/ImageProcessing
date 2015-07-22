@@ -39,10 +39,15 @@ classdef Region <handle
            img = zeros(obj.boxHeight, obj.boxWidth);
            for i = 1:obj.numBows
                bow = obj.bows(i,:);
-               %row = bow(1); startCol=bow(2); endCol=bow(3);
-               if (bow(1) < obj.boxHeight && bow(2) < obj.boxWidth && bow(3) < obj.boxWidth ...
-                       && bow(1)>1 && bow(2)>1 && bow(3)>1)
-                   img(bow(1), bow(2):bow(3)) = 1;
+               row = bow(1); startCol=bow(2); endCol=bow(3);
+               if (row < obj.boxHeight && startCol < obj.boxWidth && endCol < obj.boxWidth)
+                   if (row<1)
+                       row=row+(1-row);
+                   end
+                   if (startCol<1)
+                       startCol=startCol+(1-startCol);
+                   end
+                   img(row, startCol:endCol) = 1;
                end
            end
        end
