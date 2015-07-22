@@ -40,7 +40,10 @@ classdef Region <handle
            for i = 1:obj.numBows
                bow = obj.bows(i,:);
                %row = bow(1); startCol=bow(2); endCol=bow(3);
-               img(bow(1), bow(2):bow(3)) = 1;
+               if (bow(1) < obj.boxHeight && bow(2) < obj.boxWidth && bow(3) < obj.boxWidth ...
+                       && bow(1)>1 && bow(2)>1 && bow(3)>1)
+                   img(bow(1), bow(2):bow(3)) = 1;
+               end
            end
        end
        
@@ -63,8 +66,8 @@ classdef Region <handle
                   end
                   new=new+1;
               end
-              obj.numBows=new-1;
               obj.bows=newBows;
+              obj.numBows=size(obj.bows(:,1)); %TODO
            end
        end
        
@@ -74,28 +77,52 @@ classdef Region <handle
    methods(Static)
        function [Merged] = merge(Region1, Region2)
            Merged = Region;
+           Merged.boxWidth = Region1.boxWidth;
+           Merged.boxHeight = Region1.boxHeight;
            Merged.numBows = Region1.numBows + Region2.numBows;
            i = 1; j = 1; k = 1; % loop indices for Region1, Region2, Merged
            while(true)
-               if(Region1.bows(i,1) < Region2.bows(j,1) || (Region1.bows(i,1) == Region2.bows(j,1) && Region1.bows(i,2) < Region2.bows(j,2)) )
+               if(Region1.bows(i,1) < Region2.bows(j,1) || ...
+                       (Region1.bows(i,1) == Region2.bows(j,1) && ...
+                       Region1.bows(i,2) < Region2.bows(j,2)) )
                    Merged.bows(k,:) = Region1.bows(i,:);
                    i=i+1; k=k+1;
-                   if (i > Region1.numBows)
-                       while (j ~= Region2.numBows) Merged.bows(k,:) = Region2.bows(j,:); j=j+1; k=k+1; end
-                       Merged.numBows=Merged.numBows-1; %TODO
+                   if (i == Region1.numBows)
+                       while (j ~= Region2.numBows) 
+                           Merged.bows(k,:) = Region2.bows(j,:); j=j+1; k=k+1; 
+                       end
+                       %Merged.numBows=Merged.numBows-1; %TODO
                        break 
                    end
                else
                    Merged.bows(k,:) = Region2.bows(j,:);
                    j=j+1; k=k+1;
-                   if (j > Region2.numBows)
-                       while (i ~= Region1.numBows) Merged.bows(k,:) = Region1.bows(i,:); i=i+1; k=k+1; end
-                       Merged.numBows=Merged.numBows-1; %TODO
+                   if (j == Region2.numBows)
+                       while (i ~= Region1.numBows) 
+                           Merged.bows(k,:) = Region1.bows(i,:); i=i+1; k=k+1; 
+                       end
+                       %Merged.numBows=Merged.numBows-1; %TODO
                        break 
                    end
                end
            end
+           Merged.numBows=size(Merged.bows(:,1)); %TODO
        end
+       
+       %translate Region1 into Trans using translation vector T=[x,y]
+       %TODO: is it useful to scale box too?
+       function [Trans] = translate(Region1, T)
+           Trans = Region;
+           Trans.numBows = Region1.numBows;
+           Trans.boxWidth = Region1.boxWidth;% + T(1);
+           Trans.boxHeight = Region1.boxHeight;% + T(2);
+           for  i = 1:Region1.numBows
+               old = Region1.bows(i,:);
+               Trans.bows(i,:) = [old(1)+T(2), old(2:3)+T(1)];
+           end
+       end
+       
+       
    end
     
 end

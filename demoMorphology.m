@@ -30,10 +30,12 @@ Region2 = Region;
 Region2.extractBows(imgOut2);
 
 %the morphological step
-Merged = Region.merge(Region1,Region2);
-Merged.pack();
+Region3 = Region.merge(Region1,Region2);
+%pack overlapping bows to save memory
+Region3.pack();
+Region3 = Region.translate(Region3, [-1,20]);
 
-imgMerged = Merged.draw();
+imgMerged = Region3.draw();
 
 subplot(3,1,1), subimage(imgOut1), title('region 1')
 subplot(3,1,2), subimage(imgOut2), title('region 2')
