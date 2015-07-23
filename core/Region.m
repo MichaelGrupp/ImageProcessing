@@ -127,6 +127,10 @@ classdef Region <handle
            end
        end
        
+       function [Compl] = complement(Region1)
+           Compl = Region;
+           %TODO
+       end
        
    end
     

@@ -1,5 +1,5 @@
 addpath('core')
-tic
+
 close all; clear all;
 %works only with double!!
 img1 = im2double(imread('testImages/morph2.png'));
@@ -43,4 +43,3 @@ subplot(3,2,2), subimage(imgOut1), title('region 1')
 subplot(3,2,3), subimage(img2), title('image 2')
 subplot(3,2,4), subimage(imgOut2), title('region 2')
 subplot(3,2,6), subimage(imgMerged), title('after morphological steps')
-toc
