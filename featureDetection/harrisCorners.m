@@ -25,8 +25,8 @@ C = det + k*traces.^2;
 
 % find local maxima
 MAX = imregionalmax(C); %img > imdilate(img, [1 1 1; 1 0 1; 1 1 1]);
-C = MAX & (C>theta);
+RES = MAX & (C>theta);
 
-[Y,X] = find(C); % find row,col coords of (nonzero) features
+[Y,X] = find(RES); % find row,col coords of (nonzero) features
 
 end
