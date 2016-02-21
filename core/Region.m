@@ -36,7 +36,7 @@ classdef Region <handle
        end
        
        function [img] = draw(obj)
-           img = zeros(obj.boxHeight, obj.boxWidth);
+           img = ones(obj.boxHeight, obj.boxWidth);
            for i = 1:obj.numBows
                bow = obj.bows(i,:);
                row = bow(1); startCol=bow(2); endCol=bow(3);
@@ -47,7 +47,7 @@ classdef Region <handle
                    if (startCol<1)
                        startCol=startCol+(1-startCol);
                    end
-                   img(row, startCol:endCol) = 1;
+                   img(row, startCol:endCol) = 0;
                end
            end
        end
